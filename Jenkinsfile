@@ -30,25 +30,25 @@ pipeline {
          stage('Docker Build and Tag') {
            steps {
 
-                sh ' docker build -t samplewebapp:latest .'
-                //sh ' docker run --rm -d --group-add $(stat -c '%g' /var/run/docker.sock) -v /var/run/docker.sock:/var/run/docker.sock -P samplewebapp:latest'
-                sh ' docker tag samplewebapp nikhilnidhi/samplewebapp:latest'
+                sh 'docker build -t samplewebapp:latest .'
+                //sh 'docker run --rm -d --group-add $(stat -c '%g' /var/run/docker.sock) -v /var/run/docker.sock:/var/run/docker.sock -P samplewebapp:latest'
+                sh 'docker tag samplewebapp nikhilnidhi/samplewebapp:latest'
                 
                 //sh 'docker tag samplewebapp nikhilnidhi/samplewebapp:$BUILD_NUMBER'
 
           }
         }
 
-         stage('Publish image to Docker Hub') {
+        //  stage('Publish image to Docker Hub') {
 
-            steps {
-         withDockerRegistry([ credentialsId: "dockerHub", url: "" ]) {
-          sh  'docker push nikhilnidhi/samplewebapp:latest'
-        //  sh  'docker push nikhilnidhi/samplewebapp:$BUILD_NUMBER'
-        }
+        //     steps {
+        //  withDockerRegistry([ credentialsId: "dockerHub", url: "" ]) {
+        //   sh  'docker push nikhilnidhi/samplewebapp:latest'
+        // //  sh  'docker push nikhilnidhi/samplewebapp:$BUILD_NUMBER'
+        // }
 
-          }
-        }
+        //   }
+        // }
 
          stage('Run Docker container on Jenkins Agent') {
 
