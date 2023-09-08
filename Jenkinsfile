@@ -23,7 +23,7 @@ pipeline {
            steps {
 
                 sh 'docker run --rm -d --group-add $(stat -c '%g' /var/run/docker.sock) -v /var/run/docker.sock:/var/run/docker.sock -P samplewebapp:latest'
-                //
+                
 
           }
         }
