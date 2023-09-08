@@ -19,19 +19,21 @@ pipeline {
                 sh 'mvn package'
           }
         }
-         stage('Docker user permission') {
-           steps {
+        //  stage('Docker user permission') {
+        //    steps {
 
-                sh 'docker run --rm -d --group-add $(stat -c '%g' /var/run/docker.sock) -v /var/run/docker.sock:/var/run/docker.sock -P samplewebapp:latest'
+        //         sh 'docker run --rm -d --group-add $(stat -c '%g' /var/run/docker.sock) -v /var/run/docker.sock:/var/run/docker.sock -P samplewebapp:latest'
 
-          }
-        }
+        //   }
+        // }
 
          stage('Docker Build and Tag') {
            steps {
 
                 sh 'docker build -t samplewebapp:latest .'
+                sh 'docker run --rm -d --group-add $(stat -c '%g' /var/run/docker.sock) -v /var/run/docker.sock:/var/run/docker.sock -P samplewebapp:latest'
                 sh 'docker tag samplewebapp nikhilnidhi/samplewebapp:latest'
+                
                 //sh 'docker tag samplewebapp nikhilnidhi/samplewebapp:$BUILD_NUMBER'
 
           }
