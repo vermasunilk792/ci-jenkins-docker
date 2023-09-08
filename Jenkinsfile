@@ -30,9 +30,9 @@ pipeline {
          stage('Docker Build and Tag') {
            steps {
 
-                sh 'docker build -t samplewebapp:latest .'
-                //sh 'docker run --rm -d --group-add $(stat -c '%g' /var/run/docker.sock) -v /var/run/docker.sock:/var/run/docker.sock -P samplewebapp:latest'
-                sh 'docker tag samplewebapp nikhilnidhi/samplewebapp:latest'
+                sh 'sudo ocker build -t samplewebapp:latest .'
+                //sh 'sudo docker run --rm -d --group-add $(stat -c '%g' /var/run/docker.sock) -v /var/run/docker.sock:/var/run/docker.sock -P samplewebapp:latest'
+                sh 'sudo docker tag samplewebapp nikhilnidhi/samplewebapp:latest'
                 
                 //sh 'docker tag samplewebapp nikhilnidhi/samplewebapp:$BUILD_NUMBER'
 
