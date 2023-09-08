@@ -19,16 +19,15 @@ pipeline {
                 sh 'mvn package'
           }
         }
-   stage('Docker user permission') {
+         stage('Docker user permission') {
            steps {
 
                 sh 'docker run --rm -d --group-add $(stat -c '%g' /var/run/docker.sock) -v /var/run/docker.sock:/var/run/docker.sock -P samplewebapp:latest'
-                
 
           }
         }
 
-  stage('Docker Build and Tag') {
+         stage('Docker Build and Tag') {
            steps {
 
                 sh 'docker build -t samplewebapp:latest .'
@@ -38,10 +37,10 @@ pipeline {
           }
         }
 
-  stage('Publish image to Docker Hub') {
+         stage('Publish image to Docker Hub') {
 
             steps {
-        withDockerRegistry([ credentialsId: "dockerHub", url: "" ]) {
+         withDockerRegistry([ credentialsId: "dockerHub", url: "" ]) {
           sh  'docker push nikhilnidhi/samplewebapp:latest'
         //  sh  'docker push nikhilnidhi/samplewebapp:$BUILD_NUMBER'
         }
@@ -49,7 +48,7 @@ pipeline {
           }
         }
 
-      stage('Run Docker container on Jenkins Agent') {
+         stage('Run Docker container on Jenkins Agent') {
 
             steps
                         {
@@ -57,7 +56,7 @@ pipeline {
 
             }
         }
- stage('Run Docker container on remote hosts') {
+         stage('Run Docker container on remote hosts') {
 
             steps {
                 sh "docker -H ssh://ubuntu@54.92.145.81 run -d -p 8003:8080 nikhilnidhi/samplewebapp"
